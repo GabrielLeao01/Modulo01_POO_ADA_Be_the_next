@@ -13,6 +13,18 @@ public class marketClass {
         return vend;
 
     }
+    public static void imprimir(Mercado mercado){
+        System.out.println("Nome: "+mercado.getNome()+
+                "\nLocal: "+ mercado.getLocal()+
+                "\nMeta vendedores: "+mercado.getMeta()+
+                "\nTotal:"+mercado.getTotal());
+        for(int i=0;i<10;i++){
+            System.out.println(mercado.vendedores[i].getNomes()+
+                    ":"+ mercado.vendedores[i].getVendas()+
+                    " + "+mercado.vendedores[i].getBonificacao()+
+                    " de bonificação");
+        }
+    }
     public static void main(String[] args) {
 
         Vendedor []vendM1 = new Vendedor[10];
@@ -24,7 +36,24 @@ public class marketClass {
         Mercado mercado1 = new Mercado(vendM1,300,"Curitiba","Mercado 1");
         Mercado mercado2 = new Mercado(vendM2,500,"São Paulo","Mercado 2");
         Mercado mercado3 = new Mercado(vendM3,700,"Belo Horizonte","Mercado 3");
-        System.out.println("Nome mercado: "+mercado1.getNome()+"\nLocal:"+mercado1.getLocal()+"\nMeta:"+ mercado1.getMeta()+"\nVendedores:"+ mercado1.getVendedores());
+        Comprador comprador = new Comprador();
+        Regulador regulador = new Regulador();
+        for (int i=0;i<10;i++){
+            comprador.comprar(mercado1.vendedores[i]);
+            comprador.comprar(mercado2.vendedores[i]);
+            comprador.comprar(mercado3.vendedores[i]);
+        }
+
+        regulador.aplicar(mercado1);
+        regulador.aplicar(mercado2);
+        regulador.aplicar(mercado3);
+
+        imprimir(mercado1);
+        System.out.println("///////////////////////////");
+        imprimir(mercado2);
+        System.out.println("///////////////////////////");
+        imprimir(mercado3);
+
 
     }
 }
@@ -57,8 +86,10 @@ class Mercado{
     public int getMeta(){return this.meta;}
 
     public Vendedor[] getVendedores(){
-
         return vendedores;
+    }
+    public int getTotal(){
+        return totalVendido;
     }
 
 }
@@ -77,10 +108,23 @@ class Vendedor{
     public int getVendas(){
         return valorVendas;
     }
+    public void setBonificacao(){
+        bonificacao = (int) (valorVendas*0.1);
+    }
+    public int getBonificacao(){
+        return bonificacao;
+    }
 
 }
 class Regulador{
-
+    public void aplicar(Mercado mercado){
+        for(int i=0;i<10;i++){
+            if(mercado.vendedores[i].getVendas()> mercado.getMeta()){
+                mercado.vendedores[i].setBonificacao();
+            }
+        }
+        mercado.gerarTotal();
+    }
 }
 class Comprador{
     private static final Random random = new Random();
