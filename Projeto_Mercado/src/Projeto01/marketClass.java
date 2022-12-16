@@ -14,15 +14,12 @@ public class marketClass {
 
     }
     public static void imprimir(Mercado mercado){
-        System.out.println("Nome: "+mercado.getNome()+
-                "\nLocal: "+ mercado.getLocal()+
-                "\nMeta vendedores: "+mercado.getMeta()+
-                "\nTotal:"+mercado.getTotal());
+        System.out.println(mercado);
+        System.out.println("SALARIO E BONIFICAÇÃO VENDEDORES");
+        System.out.println("------------------------------------------");
+
         for(int i=0;i<10;i++){
-            System.out.println(mercado.vendedores[i].getNomes()+
-                    ":"+ mercado.vendedores[i].getVendas()+
-                    " + "+mercado.vendedores[i].getBonificacao()+
-                    " de bonificação");
+            System.out.println(mercado.vendedores[i]);
         }
     }
     public static void main(String[] args) {
@@ -49,9 +46,9 @@ public class marketClass {
         regulador.aplicar(mercado3);
 
         imprimir(mercado1);
-        System.out.println("///////////////////////////");
+        System.out.println("//////////////////////////////////////////");
         imprimir(mercado2);
-        System.out.println("///////////////////////////");
+        System.out.println("//////////////////////////////////////////");
         imprimir(mercado3);
 
 
@@ -91,6 +88,12 @@ class Mercado{
     public int getTotal(){
         return totalVendido;
     }
+    public String toString(){
+        return "Nome: "+getNome()+
+                "\nLocal: "+ getLocal()+
+                "\nMeta vendedores: "+getMeta()+
+                "\nTotal:"+getTotal();
+    }
 
 }
 class Vendedor{
@@ -113,6 +116,13 @@ class Vendedor{
     }
     public int getBonificacao(){
         return bonificacao;
+    }
+
+    public String toString(){
+       return getNomes() +
+               ":" + getVendas()+
+               " + " + getBonificacao() +
+                " de bonificação" ;
     }
 
 }
