@@ -17,7 +17,6 @@ public class marketClass {
         System.out.println(mercado);
         System.out.println("SALARIO E BONIFICAÇÃO VENDEDORES");
         System.out.println("------------------------------------------");
-
         for(int i=0;i<10;i++){
             System.out.println(mercado.vendedores[i]);
         }
@@ -120,9 +119,9 @@ class Vendedor{
 
     public String toString(){
        return getNomes() +
-               ":" + getVendas()+
-               " + " + getBonificacao() +
-                " de bonificação" ;
+               " vendeu " + getVendas()+
+               " reais e foi bonificado com " + getBonificacao() +
+                " reais" ;
     }
 
 }
