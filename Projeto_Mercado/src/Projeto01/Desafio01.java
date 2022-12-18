@@ -26,9 +26,6 @@ public class Desafio01 {
             System.out.println("O mercado mais lucrativo é o "+mercado3.getNome());
         }
     }
-    public static void imprimeRanking(Vendedor Maior){
-
-    }
     public static void verificaMaior(Mercado mercado1,Mercado mercado2,Mercado mercado3){
         Vendedor []maior= new Vendedor[3];
         maior[0]=mercado1.vendedores[0];
@@ -36,36 +33,38 @@ public class Desafio01 {
         maior[1]=maior[0];
         maior[2]=maior[0];
         String[] maiorMerc= new String[3];
-        for(int i=0;i<10;i++){
-            if (mercado1.vendedores[i].getVendas()>maior[0].getVendas()){
-                maior[0]=mercado1.vendedores[i];
-                maiorMerc[0]=mercado1.getNome();
-            }
-            if (mercado2.vendedores[i].getVendas()>maior[0].getVendas()){
-                maior[0]=mercado2.vendedores[i];
-                maiorMerc[0]=mercado2.getNome();
-            }
-            if (mercado3.vendedores[i].getVendas()>maior[0].getVendas()){
-                maior[0]=mercado3.vendedores[i];
-                maiorMerc[0]=mercado3.getNome();
-            }
-        }
-        for (int i=1;i<3;i++){
-            for (int j=0;j<10;j++){
-                if (mercado1.vendedores[j].getVendas()>maior[i].getVendas() &&
-                        mercado1.vendedores[j].getVendas()<maior[i-1].getVendas()){
-                    maior[i]=mercado1.vendedores[j];
-                    maiorMerc[i]=mercado1.getNome();
+        for (int i=0;i<3;i++){
+            for (int j = 0; j < 10; j++) {
+                if(i==0) {
+                    if (mercado1.vendedores[j].getVendas() > maior[i].getVendas()) {
+                        maior[i] = mercado1.vendedores[j];
+                        maiorMerc[i] = mercado1.getNome();
+                    }
+                    if (mercado2.vendedores[j].getVendas() > maior[i].getVendas()) {
+                        maior[i] = mercado2.vendedores[j];
+                        maiorMerc[i] = mercado2.getNome();
+                    }
+                    if (mercado3.vendedores[j].getVendas() > maior[i].getVendas()) {
+                        maior[i] = mercado3.vendedores[j];
+                        maiorMerc[i] = mercado3.getNome();
+                    }
+                    }
+                else{
+                    if (mercado1.vendedores[j].getVendas()>maior[i].getVendas() &&
+                            mercado1.vendedores[j].getVendas()<maior[i-1].getVendas()){
+                        maior[i]=mercado1.vendedores[j];
+                        maiorMerc[i]=mercado1.getNome();
+                    }
+                    if (mercado2.vendedores[j].getVendas()>maior[i].getVendas() &&
+                            mercado2.vendedores[j].getVendas()<maior[i-1].getVendas()){
+                        maior[i]=mercado2.vendedores[j];
+                        maiorMerc[i]=mercado2.getNome();
+                    }
+                    if (mercado3.vendedores[j].getVendas()>maior[i].getVendas() &&
+                            mercado3.vendedores[j].getVendas()<maior[i-1].getVendas()){
+                        maior[i]=mercado3.vendedores[j];
+                        maiorMerc[i]=mercado3.getNome();
                 }
-                if (mercado2.vendedores[j].getVendas()>maior[i].getVendas() &&
-                        mercado2.vendedores[j].getVendas()<maior[i-1].getVendas()){
-                    maior[i]=mercado2.vendedores[j];
-                    maiorMerc[i]=mercado2.getNome();
-                }
-                if (mercado3.vendedores[j].getVendas()>maior[i].getVendas() &&
-                mercado3.vendedores[j].getVendas()<maior[i-1].getVendas()){
-                    maior[i]=mercado3.vendedores[j];
-                    maiorMerc[i]=mercado3.getNome();
                 }
             }
         }
@@ -109,11 +108,13 @@ public class Desafio01 {
         regulador.aplicar(mercado3);
 
         imprimir(mercado1);
-        System.out.println("//////////////////////////////////////////");
+        System.out.printf("\n\n");
         imprimir(mercado2);
-        System.out.println("//////////////////////////////////////////");
+        System.out.printf("\n\n");
         imprimir(mercado3);
+        System.out.printf("\n\n");
         verificaMaior(mercado1,mercado2,mercado3);
+        System.out.printf("\n\n");
         maiorLucro(mercado1,mercado2,mercado3);
     }
 }
