@@ -12,6 +12,15 @@ public class Desafio01 {
         }
         return vend;
     }
+    public static Comprador[] geraComprador(Comprador[] comp){
+
+        for (int i=0;i< 5;i++){
+            int indiceNome = random.nextInt(nomes.length);
+            String nome = nomes[indiceNome];
+            comp[i]=new Comprador(nome);
+        }
+        return comp;
+    }
     public static void maiorLucro(Mercado mercado1, Mercado mercado2, Mercado mercado3){
         int l1= mercado1.getTotal();
         int l2=mercado2.getTotal();
@@ -83,6 +92,33 @@ public class Desafio01 {
             System.out.println(mercado.vendedores[i]);
         }
     }
+    public static void verificaMaiorComprador(Comprador[] comprador){
+        int[]maiorComprador = new int[3];
+        String[] nome= new String[3];
+        for(int i=0;i<3;i++){
+            for (int j=0;j<5;j++)
+            if(i==0){
+                if(comprador[j].getTotalCompras()>maiorComprador[i]) {
+                    maiorComprador[i] = comprador[j].getTotalCompras();
+                    nome[i]=comprador[j].getNome();
+                }
+            }
+            else{
+                if(comprador[j].getTotalCompras()>maiorComprador[i] && comprador[j].getTotalCompras()<maiorComprador[i-1])
+                {
+                    maiorComprador[i] = comprador[j].getTotalCompras();
+                    nome[i]=comprador[j].getNome();
+                }
+            }
+
+        }
+        for (int i=0;i<3;i++){
+            System.out.println((i+1)+"º lugar comprador:"+ nome[i]
+                    + " - Compra:"+maiorComprador[i]);
+
+        }
+
+    }
     public static void main(String[] args) {
 
         Vendedor []vendM1 = new Vendedor[10];
@@ -95,13 +131,17 @@ public class Desafio01 {
         Mercado mercado1 = new Mercado(vendM1,300,"Curitiba","Mercado 1");
         Mercado mercado2 = new Mercado(vendM2,500,"São Paulo","Mercado 2");
         Mercado mercado3 = new Mercado(vendM3,700,"Belo Horizonte","Mercado 3");
-        Comprador comprador = new Comprador();
+        Comprador []comprador = new Comprador[5];
+        comprador =geraComprador(comprador);
         Regulador regulador = new Regulador();
-        for (int i=0;i<10;i++){
-            comprador.comprar(mercado1.vendedores[i]);
-            comprador.comprar(mercado2.vendedores[i]);
-            comprador.comprar(mercado3.vendedores[i]);
+        for (int i=0;i<5;i++){
+            for (int j =0;j<10;j++){
+                comprador[i].comprar(mercado1.vendedores[j]);
+                comprador[i].comprar(mercado2.vendedores[j]);
+                comprador[i].comprar(mercado3.vendedores[j]);
+            }
         }
+
 
         regulador.aplicar(mercado1);
         regulador.aplicar(mercado2);
@@ -115,8 +155,13 @@ public class Desafio01 {
         System.out.printf("\n\n");
         verificaMaior(mercado1,mercado2,mercado3);
         System.out.printf("\n\n");
+        verificaMaiorComprador(comprador);
+        System.out.printf("\n\n");
         maiorLucro(mercado1,mercado2,mercado3);
+
     }
+
+
 }
 
 
